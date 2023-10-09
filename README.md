@@ -4,7 +4,10 @@
 This assignment will use the HN Search API to allow the user to browse Hacker News posts.
 by Atlan T
 
-# To install
-
+## To install
 
 `npm i`
+
+## To run
+
+`npm run dev`
