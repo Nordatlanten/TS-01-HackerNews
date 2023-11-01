@@ -65,6 +65,29 @@ export function setupNewsForm(element: HTMLFormElement) {
     else return "No URL found."
   }
 
+  //To convert date string to a clean format
+  const convertDate = (source: string) : string => {
+
+      let dateInMS = Date.parse(source) 
+      console.log(dateInMS)
+      const slices: string[] = []
+  
+      const msInHour = 1000 * 60 * 60
+      const hours = Math.trunc(dateInMS / msInHour)
+      if (hours > 0) {
+        slices.push(hours + 'h')
+        dateInMS = dateInMS - (hours * msInHour)
+      }
+      const msInMinute = 1000 * 60
+      const minutes = Math.trunc(dateInMS / msInMinute)
+      if (minutes > 0) {
+        slices.push(minutes + 'm')
+      }
+      return slices.join(' ')
+    
+  }
+
+
   //This method will do things when history state is changed
   addEventListener("popstate", (_e) => {
     grabURLParameters()
@@ -105,7 +128,8 @@ export function setupNewsForm(element: HTMLFormElement) {
       let title = item.title
       let points = 'Points: ' + item.points
       let link = item.url
-      let createdAt = 'Created at: ' + item.created_at
+      let convertedTimeStamp = convertDate(item.created_at)
+      let createdAt = 'Created at: ' + convertedTimeStamp
 
       //create card elements
       let newsCard = document.createElement('div')
